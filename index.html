@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Samantha! 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffe6f2, #ffb3d9, #ffcce6);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      font-family: 'Lexend', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Pastel Yellow Glowing Fonts */
+    .glow {
+      color: #ffffff;
+      text-shadow: 0 0 10px #fff59d, 0 0 20px #fff59d, 0 0 30px #ffee58, 0 0 40px #ffee58;
+    }
+
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      animation: fadeIn 0.8s ease-in-out forwards;
+      z-index: 2;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Cute Buttons with Yellow Glow */
+    .glow-btn {
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 245, 157, 0.8), 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .glow-btn:hover {
+      transform: scale(1.08);
+      background-color: #ff3385;
+      box-shadow: 0 0 25px rgba(255, 245, 157, 1), 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Screen 1 Styles */
+    .small {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .big {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .sub-title {
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    .countdown-box {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 10px 20px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    /* Side Coding Decorations */
+    .side-code {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: monospace;
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.4);
+      pointer-events: none;
+      z-index: 1;
+      line-height: 1.6;
+    }
+    .side-code.left { left: 30px; text-align: left; }
+    .side-code.right { right: 30px; text-align: right; }
+
+    /* Screen 2: Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      max-width: 420px;
+      margin: 15px 0;
+    }
+
+    .gallery img {
+      width: 140px;
+      height: 140px;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(255, 102, 178, 0.3);
+      border: 3px solid white;
+      transform: rotate(-2deg);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:nth-child(even) {
+      transform: rotate(3deg);
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05) rotate(0deg);
+    }
+
+    /* Screen 3: Interactive Envelope & Letter */
+    .envelope-wrapper {
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .envelope-wrapper:hover {
+      transform: scale(1.05);
+    }
+
+    .envelope {
+      width: 260px;
+      height: 170px;
+      background: #ff80bf;
+      border-radius: 0 0 10px 10px;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(255, 102, 178, 0.4);
+      margin: 0 auto 15px auto;
+    }
+
+    .envelope::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-left: 130px solid transparent;
+      border-right: 130px solid transparent;
+      border-top: 95px solid #ff4d94;
+      transform-origin: top;
+      transition: transform 0.4s ease;
+    }
+
+    .envelope.open::before {
+      transform: rotateX(180deg);
+      z-index: 10;
+    }
+
+    .letter-card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 25px;
+      border-radius: 20px;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(255, 102, 178, 0.4);
+      border: 2px solid #ff99cc;
+      text-align: left;
+      display: none;
+      animation: popUp 0.5s ease forwards;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    @keyframes popUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.9); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .letter-card h2 {
+      font-size: 1.6rem;
+      color: #ff3385;
+      margin-bottom: 12px;
+    }
+
+    .letter-card p {
+      color: #444;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      text-shadow: none;
+    }
+
+    /* Falling Blossom Petals */
+    .petal {
+      position: absolute;
+      top: -10vh;
+      background-color: #ffb3d9;
+      border-radius: 150% 0 150% 0;
+      animation: fall linear infinite;
+      z-index: 1;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0.2; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Falling Petals Background Canvas container -->
+  <div id="petals-container"></div>
+
+  <!-- Side Coding Decorative Tags -->
+  <div class="side-code left">
+    &lt;div&gt;<br>
+    &nbsp;&nbsp;<span>&lt;html&gt;</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&amp;#10084;<br>
+    &nbsp;&nbsp;<span>&lt;/html&gt;</span><br>
+    &lt;/div&gt;
+  </div>
+  <div class="side-code right">
+    <span>&lt;body&gt;</span><br>
+    &nbsp;&nbsp;<span>&lt;code&gt;</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;✨<br>
+    &nbsp;&nbsp;<span>&lt;/code&gt;</span><br>
+    <span>&lt;/body&gt;</span>
+  </div>
+
+  <!-- Screen 1: Welcome & Countdown -->
+  <section id="screen1" class="screen active">
+    <p class="glow small">a little something for you...</p>
+    <h1 class="glow big">Happy Birthday, Samantha! 🌸</h1>
+    <p class="glow sub-title">Ad Astra Per Aspera</p>
+    
+    <div class="countdown-box glow" id="countdown">
+      Loading countdown to October 14...
+    </div>
+
+    <button id="btn1" class="glow-btn">tap here 💗</button>
+  </section>
+
+  <!-- Screen 2: Pictures Gallery -->
+  <section id="screen2" class="screen">
+    <h2 class="glow" style="font-size: 2rem; margin-bottom: 5px;">some memories 📸</h2>
+    <p class="glow small" style="margin-bottom: 15px;">moments worth smiling about</p>
+    
+    <div class="gallery">
+      <!-- To change photos, upload your images to GitHub and put their filenames in src="..." -->
+      <img src="photo1.jpg" alt="Memory 1" onerror="this.src='https://via.placeholder.com/140?text=Photo+1'" />
+      <img src="photo2.jpg" alt="Memory 2" onerror="this.src='https://via.placeholder.com/140?text=Photo+2'" />
+      <img src="photo3.jpg" alt="Memory 3" onerror="this.src='https://via.placeholder.com/140?text=Photo+3'" />
+      <img src="photo4.jpg" alt="Memory 4" onerror="this.src='https://via.placeholder.com/140?text=Photo+4'" />
+    </div>
+
+    <button id="btn2" class="glow-btn">open your letter 💌</button>
+  </section>
+
+  <!-- Screen 3: Envelope & Letter -->
+  <section id="screen3" class="screen">
+    <div id="envelope-container" class="envelope-wrapper" onclick="openEnvelope()">
+      <p class="glow" style="margin-bottom: 15px; font-weight: 600;">You've got mail! Tap envelope 💌</p>
+      <div class="envelope" id="envelope"></div>
+    </div>
+
+    <div class="letter-card" id="letterCard">
+      <h2>Dear Samantha,</h2>
+      <p>Wishing you the happiest birthday ever! 🎉 I am so grateful for your presence, your incredible energy, and all the wonderful memories we share.</p>
+      <p>May this coming year bring you closer to all your biggest dreams, boundless success, and endless happiness. Keep shining bright!</p>
+      <p style="text-align: right; margin-top: 15px; font-weight: 600; color: #ff3385;">With all my love, <br>— Your Friend 💖</p>
+    </div>
+  </section>
+
+  <!-- Background Song: Replace 'song.mp3' with your music filename or direct link -->
+  <audio id="music" src="song.mp3" loop></audio>
+
+  <script>
+    // Navigation Logic & Music Starter
+    const btn1 = document.getElementById('btn1');
+    const btn2 = document.getElementById('btn2');
+    const screen1 = document.getElementById('screen1');
+    const screen2 = document.getElementById('screen2');
+    const screen3 = document.getElementById('screen3');
+    const music = document.getElementById('music');
+
+    btn1.addEventListener('click', () => {
+      screen1.classList.remove('active');
+      screen2.classList.add('active');
+      playMusic();
+    });
+
+    btn2.addEventListener('click', () => {
+      screen2.classList.remove('active');
+      screen3.classList.add('active');
+      playMusic();
+    });
+
+    function playMusic() {
+      if (music.paused) {
+        music.play().catch(e => console.log("Audio autoplay restricted by browser"));
+      }
+    }
+
+    // Interactive Envelope Opener
+    function openEnvelope() {
+      const envelope = document.getElementById('envelope');
+      const envelopeContainer = document.getElementById('envelope-container');
+      const letterCard = document.getElementById('letterCard');
+
+      envelope.classList.add('open');
+      setTimeout(() => {
+        envelopeContainer.style.display = 'none';
+        letterCard.style.display = 'block';
+      }, 400);
+    }
+
+    // Live Countdown to October 14
+    function updateCountdown() {
+      // Sets target to October 14 of the current/next cycle
+      const now = new Date();
+      let year = now.getFullYear();
+      let birthday = new Date(`October 14, ${year} 00:00:00`);
+      
+      // If October 14 has passed this year, target next year
+      if (now > new Date(`October 14, ${year} 23:59:59`)) {
+        birthday = new Date(`October 14, ${year + 1} 00:00:00`);
+      }
+
+      const diff = birthday - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = "🌸 It's October 14! Happy Birthday! 🎂";
+        return;
+      }
+
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('countdown').innerHTML = 
+        `⏳ Countdown to Oct 14: ${hours}h ${minutes}m ${seconds}s left!`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Falling Blossom Petals Generator
+    function createPetals() {
+      const container = document.getElementById('petals-container');
+      const count = 25;
+
+      for (let i = 0; i < count; i++) {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        
+        const size = Math.random() * 12 + 8;
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size * 0.6}px`;
+        petal.style.left = `${Math.random() * 100}vw`;
+        
+        const duration = Math.random() * 6 + 4;
+        const delay = Math.random() * 5;
+        petal.style.animationDuration = `${duration}s`;
+        petal.style.animationDelay = `${delay}s`;
+        
+        const colors = ['#ffb3d9', '#ffcce6', '#fff59d', '#ff99cc'];
+        petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+        container.appendChild(petal);
+      }
+    }
+
+    window.onload = createPetals;
+  </script>
+</body>
+</html>
